@@ -1,6 +1,9 @@
 import url from "../models/url-model.js";
 import { StatusCodes } from "http-status-codes";
 import validator from "validator";
+import mongoose from "mongoose";
+import axios from "axios";
+import cheerio from "cheerio";
 
 export const create = async (req, res) => {
   try {
@@ -108,5 +111,95 @@ export const edit = async (req, res) => {
         message: "未知錯誤",
       });
     }
+  }
+};
+
+// controllers/bookmarkController.js
+export const deleteBookmark = async (req, res) => {
+  try {
+    const { id, uid } = req.params;
+
+    // 刪除書籤
+    const result = await url.findByIdAndUpdate(
+      id,
+      { $pull: { urls: { _id: uid } } },
+      { new: true }
+    );
+
+    if (!result) {
+      res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "找不到書籤",
+      });
+    } else {
+      res.status(StatusCodes.OK).json({
+        success: true,
+        message: "書籤刪除成功",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    if (error.name === "CastError") {
+      res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: "ID 格式錯誤",
+      });
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: "未知錯誤",
+      });
+    }
+  }
+};
+export const deleteCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 确保 id 是有效的 ObjectID
+    const validObjectId = mongoose.isValidObjectId(id);
+    if (!validObjectId) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: "Invalid ID format",
+      });
+    }
+
+    // 使用 $pull 操作符将整个分类删除
+    const result = await url.findByIdAndDelete(id);
+
+    if (!result) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "Category not found",
+      });
+    }
+
+    // 顯示刪除成功的消息
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "分類刪除成功",
+    });
+  } catch (error) {
+    console.error(error); // 在控制台输出错误信息
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "未知錯誤",
+    });
+  }
+};
+
+export const getTitle = async (req, res) => {
+  const { url } = req.params;
+
+  try {
+    const response = await axios.get(url);
+    const $ = cheerio.load(response.data);
+    const title = $("title").text();
+
+    res.json({ title });
+  } catch (error) {
+    console.error("Error fetching title:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
