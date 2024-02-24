@@ -13,6 +13,9 @@ const urlSchema = new Schema(
     description: {
       type: String,
     },
+    icon: {
+      type: String, // 使用 Buffer 存储二进制数据
+    },
   },
   {
     timestamps: true,
