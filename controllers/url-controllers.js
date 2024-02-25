@@ -203,6 +203,7 @@ export const getTitle = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+<<<<<<< HEAD
 
 export const toggleButtonColor = async (req, res) => {
   const { urlId, buttonId } = req.params;
@@ -232,3 +233,5 @@ export const toggleButtonColor = async (req, res) => {
     res.status(500).json({ message: "按钮状态更新失败" });
   }
 };
+=======
+>>>>>>> abcd47c2d6847f59ca23dc64b6bebbe9c0dff895

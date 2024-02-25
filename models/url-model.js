@@ -16,9 +16,12 @@ const urlSchema = new Schema(
     icon: {
       type: String, // 使用 Buffer 存储二进制数据
     },
+<<<<<<< HEAD
     buttonStates: {
       type: Boolean,
     },
+=======
+>>>>>>> abcd47c2d6847f59ca23dc64b6bebbe9c0dff895
   },
   {
     timestamps: true,

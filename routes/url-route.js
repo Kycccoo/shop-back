@@ -11,7 +11,10 @@ import {
   getTitle,
   deleteBookmark, // 引入刪除書籤的控制器
   deleteCategory, // 引入刪除分類的控制器
+<<<<<<< HEAD
   toggleButtonColor,
+=======
+>>>>>>> abcd47c2d6847f59ca23dc64b6bebbe9c0dff895
 } from "../controllers/url-controllers.js";
 import upload from "../middlewares/upload.js";
 import admin from "../middlewares/admin.js";
@@ -25,7 +28,10 @@ router.patch("/:id/:uid", auth.jwt, admin, edit);
 router.delete("/:id/:uid", auth.jwt, admin, deleteBookmark); // 添加刪除書籤的路由
 router.delete("/:id", auth.jwt, admin, deleteCategory); // 添加刪除分類的路由
 router.get("/getTitle/:url", getTitle);
+<<<<<<< HEAD
 router.patch("/:urlId/button/:buttonId", auth.jwt, toggleButtonColor);
+=======
+>>>>>>> abcd47c2d6847f59ca23dc64b6bebbe9c0dff895
 // router.get("/", get);
 // router.get("/:id", getId);
 
