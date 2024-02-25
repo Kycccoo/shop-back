@@ -7,6 +7,7 @@ import routeUrl from "./routes/url-route.js";
 // import routeOrders from "./routes/orders.js";
 import { StatusCodes } from "http-status-codes";
 import "./passport/passport.js";
+import passport from "passport";
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use((_, req, res, next) => {
 app.use("/users", routeUsers);
 app.use("/url", routeUrl);
 // app.use("/orders", routeOrders);
+app.use("/getTitle", routeUrl);
 
 app.all("*", (req, res) => {
   console.log(`404 Not Found - Path: ${req.originalUrl}`);

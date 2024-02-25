@@ -1,14 +1,12 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20");
-const User = require("../models/user-model");
-const LocalStrategy = require("passport-local");
-const bcrypt = require("bcrypt");
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import User from "../models/user-model";
+import LocalStrategy from "passport-local";
+import bcrypt from "bcrypt";
 
 passport.serializeUser((user, done) => {
   console.log("serialize使用者...");
-  //   console.log(user);
-  done(null, user._id); //將mongoDB的id存在內部
-  //   並且將id簽名後，以cookie的形式給使用者
+  done(null, user._id); // 將mongoDB的id存在內部 並且將id簽名後，以cookie的形式給使用者
 });
 
 passport.deserializeUser(async (_id, done) => {
@@ -24,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:8080/auth/google/redirect",
+      callbackURL: "http://localhost:4000/auth/google/redirect",
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("進入google Strategy區域");
@@ -65,3 +63,5 @@ passport.use(
     }
   })
 );
+
+export default passport;
