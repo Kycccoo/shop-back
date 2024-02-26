@@ -1,0 +1,8 @@
+DB_URL=mongodb+srv://y07565656:vOLWl7fnepQpvGdS@cluster0.fyorhgb.mongodb.net/kmar
+JWT_SECRET=kmar
+CLOUDINARY_NAME=dme8zrnbp
+CLOUDINARY_KEY=938366429311387
+CLOUDINARY_SECRET=M8bp1GRJNGrOwunbKCBrg9wkfIg
+GOOGLE_CLIENT_ID="605355733472-33eio8u252t8mbmnvc74tefmi1vuib44.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="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"
+SESSION_SECRET="說了是秘密你還問"
